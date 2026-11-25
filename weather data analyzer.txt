@@ -1,0 +1,137 @@
+#include <stdio.h>
+
+int main()
+{
+    // Arrays to store weather records
+    float maxTemp[50], minTemp[50];
+
+    int count = 0;
+    int choice, sno, i;
+
+    // Menu repeats until the user chooses Exit
+    do
+    {
+        printf("\n====================================\n");
+        printf("       WEATHER DATA ANALYZER\n");
+        printf("====================================\n");
+
+        printf("1. Add a day's temperatures\n");
+        printf("2. View all days\n");
+        printf("3. Search day by S.No.\n");
+        printf("4. Exit\n");
+
+        printf("------------------------------------\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            // FUNCTIONALITY 1: ADD WEATHER RECORD
+            case 1:
+
+                if(count == 50)
+                {
+                    printf("\nRecord storage is full!\n");
+                }
+                else
+                {
+                    printf("\nEnter maximum temperature (C): ");
+                    scanf("%f", &maxTemp[count]);
+
+                    printf("Enter minimum temperature (C): ");
+                    scanf("%f", &minTemp[count]);
+
+                    // Check temperature validity
+                    if(maxTemp[count] < minTemp[count])
+                    {
+                        printf("\nInvalid temperatures!");
+                        printf("\nMaximum cannot be less than minimum.\n");
+                    }
+                    else
+                    {
+                        count++;
+
+                        printf("\nWeather record added successfully!\n");
+                        printf("Assigned S.No. = %d\n", count);
+                    }
+                }
+
+                break;
+
+            // FUNCTIONALITY 2: VIEW ALL RECORDS
+            case 2:
+
+                if(count == 0)
+                {
+                    printf("\nNo weather records available.\n");
+                }
+                else
+                {
+                    printf("\n====================================\n");
+                    printf("          WEATHER RECORDS\n");
+                    printf("====================================\n");
+
+                    printf("S.No.\tMaximum(C)\tMinimum(C)\n");
+                    printf("------------------------------------\n");
+
+                    for(i = 0; i < count; i++)
+                    {
+                        printf("%d\t%.1f\t\t%.1f\n",
+                               i + 1, maxTemp[i], minTemp[i]);
+                    }
+                }
+
+                break;
+
+            // FUNCTIONALITY 3: SEARCH BY SERIAL NUMBER
+            case 3:
+
+                if(count == 0)
+                {
+                    printf("\nNo weather records available.\n");
+                }
+                else
+                {
+                    printf("\nEnter S.No. to search: ");
+                    scanf("%d", &sno);
+
+                    if(sno >= 1 && sno <= count)
+                    {
+                        i = sno - 1;
+
+                        printf("\n====================================\n");
+                        printf("           RECORD FOUND\n");
+                        printf("====================================\n");
+
+                        printf("S.No.: %d\n", sno);
+                        printf("Maximum temperature: %.1f C\n",
+                               maxTemp[i]);
+                        printf("Minimum temperature: %.1f C\n",
+                               minTemp[i]);
+                    }
+                    else
+                    {
+                        printf("\nNo record found for this S.No.\n");
+                    }
+                }
+
+                break;
+
+            // EXIT
+            case 4:
+
+                printf("\nExiting Weather Data Analyzer.\n");
+                printf("Thank you!\n");
+
+                break;
+
+            // INVALID MENU CHOICE
+            default:
+
+                printf("\nInvalid choice! Please select 1 to 4.\n");
+        }
+
+    } while(choice != 4);
+
+    return 0;
+}
